@@ -14,6 +14,7 @@ import booking.com.tasks.OpenTheApplication;
 import booking.com.tasks.SearchRoom;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -37,8 +38,11 @@ public class SearchRoomByKeywordStory {
     @Test
     public void booking_2_rooms_for_4_adult_and_3_children_for_3_days_at_Phu_Quoc() {
         LocalDateTime today = LocalDateTime.now();
-        LocalDateTime startDate = today.plusDays(7);
-        LocalDateTime endDate = today.plusDays(10);
+        LocalDateTime startDateTime = today.plusDays(7);
+        LocalDateTime endDateTime = today.plusDays(10);
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String startDate = startDateTime.format(formatter);
+        String endDate = endDateTime.format(formatter);
 
         givenThat(anna).wasAbleTo(openTheApplication);
 
@@ -52,6 +56,6 @@ public class SearchRoomByKeywordStory {
                         .build()
         );
 
-        then(anna).should((seeThat(SearchQuestion.totalRoomDisplay(), equalTo(267))));
+        then(anna).should((seeThat(SearchQuestion.totalRoomDisplay(), equalTo(270))));
     }
 }

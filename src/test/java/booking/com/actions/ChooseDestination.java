@@ -9,11 +9,11 @@ import net.thucydides.core.annotations.Step;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class Choose implements Interaction {
+public class ChooseDestination implements Interaction {
 
-    private String destination;
+    private final String destination;
 
-    public Choose(String destination){
+    public ChooseDestination(String destination){
         this.destination = destination;
     }
 
@@ -27,7 +27,7 @@ public class Choose implements Interaction {
 //        BookingPageElements.FIRST_ITEM.resolveFor(actor).click();
     }
 
-    public static Interaction withDestination(String destination) {
-        return instrumented(Choose.class, destination);
+    public static Interaction with(String destination) {
+        return instrumented(ChooseDestination.class, destination);
     }
 }

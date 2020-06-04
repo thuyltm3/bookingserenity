@@ -11,23 +11,23 @@ import java.time.format.DateTimeFormatter;
 
 public class ChooseDate implements Interaction {
 
-    private LocalDateTime dateTime;
-    private String dateString;
-    private String status;
+    private String startDate;
+    private String endDate;
 
-    public ChooseDate(LocalDateTime dateTime, String status){
-        this.dateTime = dateTime;
-        this.status = status;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.dateString = this.dateTime.format(formatter);
+    public ChooseDate(String startDate, String  endDate){
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    @Step("{0} choose #status date is #dateString")
+    @Step("{0} books a room from #startDate to #endDate")
     @Override
     public <T extends Actor> void performAs(T actor) {
-        Target DATE_TARGET = Target.the("date")
-                .located(By.cssSelector("td[data-date=\"" + this.dateString + "\"]"));
+        Target START_DATE = Target.the("date")
+                .located(By.cssSelector("td[data-date=\"" + this.startDate + "\"]"));
+        START_DATE.resolveFor(actor).click();
 
-        DATE_TARGET.resolveFor(actor).click();
+        Target END_DATE = Target.the("date")
+                .located(By.cssSelector("td[data-date=\"" + this.endDate + "\"]"));
+        END_DATE.resolveFor(actor).click();
     }
 }

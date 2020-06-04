@@ -1,26 +1,25 @@
 package booking.com.tasks;
 
-import booking.com.actions.Choose;
+import booking.com.actions.ChooseDestination;
 import booking.com.actions.ChooseDuration;
 import booking.com.actions.VisitorBooking;
 import booking.com.ui.BookingPageElements;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
-import java.time.LocalDateTime;
 
 public class SearchRoom implements Task {
 
     private final String destination;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private final String startDate;
+    private final String endDate;
     private final int numberOfAdult;
     private final int numberOfChildren;
     private final int numberOfRoom;
 
     public SearchRoom(String destination,
-                         LocalDateTime startDate,
-                         LocalDateTime endDate,
+                         String startDate,
+                         String endDate,
                          int numberOfAdult,
                          int numberOfChildren,
                          int numberOfRoom) {
@@ -38,9 +37,8 @@ public class SearchRoom implements Task {
 
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Choose.withDestination(this.destination),
-                ChooseDuration.withStartDate(this.startDate),
-                ChooseDuration.withEndDate(this.endDate),
+                ChooseDestination.with(this.destination),
+                ChooseDuration.with(this.startDate, this.endDate),
                 VisitorBooking.forAdults(this.numberOfAdult)
                         .andChild(this.numberOfChildren)
                         .andRoom(this.numberOfRoom),
@@ -50,8 +48,8 @@ public class SearchRoom implements Task {
 
     public static class SearchRoomBuilder{
         private final String destination;
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private String startDate;
+        private String endDate;
         private int numberOfAdult;
         private int numberOfChildren;
         private int numberOfRoom;
@@ -60,12 +58,12 @@ public class SearchRoom implements Task {
             this.destination = destination;
         }
 
-        public SearchRoomBuilder andFrom(LocalDateTime startDate){
+        public SearchRoomBuilder andFrom(String startDate){
             this.startDate = startDate;
             return this;
         }
 
-        public SearchRoomBuilder andTo(LocalDateTime endDate){
+        public SearchRoomBuilder andTo(String endDate){
             this.endDate = endDate;
             return this;
         }
