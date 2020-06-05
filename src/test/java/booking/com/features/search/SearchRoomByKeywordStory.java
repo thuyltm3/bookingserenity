@@ -56,6 +56,6 @@ public class SearchRoomByKeywordStory {
                         .build()
         );
 
-        then(anna).should((seeThat(SearchQuestion.totalRoomDisplay(), equalTo(270))));
+        then(anna).should((seeThat(SearchQuestion.totalRoomDisplay(), equalTo(273))));
     }
 }
